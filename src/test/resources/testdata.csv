@@ -1,0 +1,4 @@
+SerialNo,TestName,Category,Type,Pizza1,Toppings1,Toppings2,Quantity,Name,Email,Phone,Payment
+1,TC01_place_order,E2E,Postive,Small 6 Slices - no toppings,Mushrooms,Mozzarella cheese,1,Sri Test,test@gmail.com,9500927778',Credit
+2,TC02_place_order_negative_qty,E2E,Negative,Large 10 Slices - 2 toppings,Olives,Diced Mango,-1,Sri Test,test@gmail.com,9500927778',Cash
+3,TC03_place_order_without_name,E2E,Negative,Medium 8 Slices - 2 toppings,Italian Ham,Caramelized onions,1,,test@gmail.com,9500927778',Cash

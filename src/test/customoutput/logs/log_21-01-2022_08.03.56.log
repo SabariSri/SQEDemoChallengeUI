@@ -1,0 +1,90 @@
+2022-01-21 20:03:57 INFO  LoggerConfig:78 - Cleared all the existing screenshots, GIFs & reports from its respective directories
+2022-01-21 20:03:57 INFO  LoggerConfig:95 - Cleared the existing execution logs
+2022-01-21 20:03:57 INFO  LoggerConfig:100 - ***************************************************************************************
+2022-01-21 20:03:57 INFO  LoggerConfig:101 - Staring Test Execution - TC01_place_order
+2022-01-21 20:03:57 INFO  LoggerConfig:102 - ***************************************************************************************
+2022-01-21 20:04:01 INFO  LoggerConfig:52 - Test data ::{SerialNo=1, TestName=TC01_place_order, Category=E2E, Type=Postive, Pizza1=Small 6 Slices - no toppings, Toppings1=Mushrooms, Toppings2=Mozzarella cheese, Quantity=1, Name=Sri Test, Email=test@gmail.com, Phone=9500927778, Payment=Credit}
+2022-01-21 20:04:02 INFO  LoggerConfig:35 - Selected 'Small 6 Slices - no toppings' from Pizza1 Dropdown
+2022-01-21 20:04:03 INFO  LoggerConfig:35 - Selected 'Mushrooms' from Toppings1 Dropdown
+2022-01-21 20:04:04 INFO  LoggerConfig:35 - Selected 'Mozzarella cheese' from Toppings2 Dropdown
+2022-01-21 20:04:04 INFO  LoggerConfig:35 - Cleared & typed '1' in Quantity Field
+2022-01-21 20:04:04 INFO  LoggerConfig:52 - Text of Selected Pizza1 Text :: Small 6 Slices - no toppings $6.75
+2022-01-21 20:04:05 INFO  LoggerConfig:35 - Typed 'Sri Test' in Name Field
+2022-01-21 20:04:06 INFO  LoggerConfig:35 - Typed 'test@gmail.com' in Email Field
+2022-01-21 20:04:07 INFO  LoggerConfig:35 - Typed '9500927778' in Phone Field
+2022-01-21 20:04:07 INFO  LoggerConfig:35 - Clicked on Credit Card - Radio Button
+2022-01-21 20:04:08 INFO  LoggerConfig:35 - Clicked on Place Order Button
+2022-01-21 20:04:08 INFO  LoggerConfig:52 - Text of 'Order Popup' :: Thank you for your order! TOTAL: 6.75 Small 6 Slices - no toppings
+2022-01-21 20:04:09 INFO  LoggerConfig:35 - Successfully validated the Order Popup 'Thank you for your order! TOTAL: 6.75 Small 6 Slices - no toppings' contains 'Thank you for your order!'
+2022-01-21 20:04:09 INFO  LoggerConfig:52 - Text of 'Order Popup' :: Thank you for your order! TOTAL: 6.75 Small 6 Slices - no toppings
+2022-01-21 20:04:10 INFO  LoggerConfig:35 - Successfully validated the Total cost from order popup: 6.75
+2022-01-21 20:04:10 INFO  LoggerConfig:114 - Gif creation is in progress...
+2022-01-21 20:04:13 INFO  LoggerConfig:64 - Converted the available screenshots into gif
+2022-01-21 20:04:13 INFO  LoggerConfig:101 - Deleted the passed screenshots as the Gif is created
+2022-01-21 20:04:13 INFO  LoggerConfig:100 - ***************************************************************************************
+2022-01-21 20:04:13 INFO  LoggerConfig:101 - Staring Test Execution - TC02_place_order_negative_qty
+2022-01-21 20:04:13 INFO  LoggerConfig:102 - ***************************************************************************************
+2022-01-21 20:04:16 INFO  LoggerConfig:52 - Test data ::{SerialNo=2, TestName=TC02_place_order_negative_qty, Category=E2E, Type=Negative, Pizza1=Large 10 Slices - 2 toppings, Toppings1=Olives, Toppings2=Diced Mango, Quantity=-1, Name=Sri Test, Email=test@gmail.com, Phone=9500927778, Payment=Cash}
+2022-01-21 20:04:17 INFO  LoggerConfig:35 - Selected 'Large 10 Slices - 2 toppings' from Pizza1 Dropdown
+2022-01-21 20:04:17 INFO  LoggerConfig:35 - Selected 'Olives' from Toppings1 Dropdown
+2022-01-21 20:04:18 INFO  LoggerConfig:35 - Selected 'Diced Mango' from Toppings2 Dropdown
+2022-01-21 20:04:19 INFO  LoggerConfig:35 - Cleared & typed '-1' in Quantity Field
+2022-01-21 20:04:19 INFO  LoggerConfig:52 - Text of Selected Pizza1 Text :: Large 10 Slices - 2 toppings $13.50
+2022-01-21 20:04:20 INFO  LoggerConfig:35 - Typed 'Sri Test' in Name Field
+2022-01-21 20:04:21 INFO  LoggerConfig:35 - Typed 'test@gmail.com' in Email Field
+2022-01-21 20:04:22 INFO  LoggerConfig:35 - Typed '9500927778' in Phone Field
+2022-01-21 20:04:23 INFO  LoggerConfig:35 - Clicked on Cash on Delivery - Radio Button
+2022-01-21 20:04:23 INFO  LoggerConfig:35 - Clicked on Place Order Button
+2022-01-21 20:04:23 INFO  LoggerConfig:52 - Text of 'Order Popup' :: Thank you for your order! TOTAL: -13.5
+2022-01-21 20:04:24 INFO  LoggerConfig:35 - Successfully validated the Order Popup 'Thank you for your order! TOTAL: -13.5' contains 'Thank you for your order!'
+2022-01-21 20:04:24 INFO  LoggerConfig:52 - Text of 'Order Popup' :: Thank you for your order! TOTAL: -13.5
+2022-01-21 20:04:25 ERROR LoggerConfig:41 - Actual 'Total cost from order popup' is '-13.5' & Expected 'Total cost from order popup' is ' 13.5'
+com.demo.app.utils.CustomException: Actual '-13.5' & Expected '13.5' values are different
+	at com.demo.app.utils.ExtentReportUtility.stepFailErrorStack(ExtentReportUtility.java:39)
+	at com.demo.app.utils.AssertUtility.assertEquals(AssertUtility.java:25)
+	at com.demo.app.tests.PizzaFormTest.TC02_place_order_negative_qty(PizzaFormTest.java:37)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+	at org.testng.TestRunner.run(TestRunner.java:505)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+	at org.testng.TestNG.runSuites(TestNG.java:1049)
+	at org.testng.TestNG.run(TestNG.java:1017)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
+2022-01-21 20:04:26 INFO  LoggerConfig:114 - Gif creation is in progress...
+2022-01-21 20:04:28 INFO  LoggerConfig:64 - Converted the available screenshots into gif
+2022-01-21 20:04:28 INFO  LoggerConfig:101 - Deleted the passed screenshots as the Gif is created
+2022-01-21 20:04:28 INFO  LoggerConfig:100 - ***************************************************************************************
+2022-01-21 20:04:28 INFO  LoggerConfig:101 - Staring Test Execution - TC03_place_order_without_name
+2022-01-21 20:04:28 INFO  LoggerConfig:102 - ***************************************************************************************
+2022-01-21 20:04:30 INFO  LoggerConfig:52 - Test data ::{SerialNo=3, TestName=TC03_place_order_without_name, Category=E2E, Type=Negative, Pizza1=Medium 8 Slices - 2 toppings, Toppings1=Italian Ham, Toppings2=Caramelized onions, Quantity=1, Name=, Email=test@gmail.com, Phone=9500927778, Payment=Cash}
+2022-01-21 20:04:31 INFO  LoggerConfig:35 - Selected 'Medium 8 Slices - 2 toppings' from Pizza1 Dropdown
+2022-01-21 20:04:32 INFO  LoggerConfig:35 - Selected 'Italian Ham' from Toppings1 Dropdown
+2022-01-21 20:04:33 INFO  LoggerConfig:35 - Selected 'Caramelized onions' from Toppings2 Dropdown
+2022-01-21 20:04:34 INFO  LoggerConfig:35 - Cleared & typed '1' in Quantity Field
+2022-01-21 20:04:34 INFO  LoggerConfig:35 - Typed '' in Name Field
+2022-01-21 20:04:35 INFO  LoggerConfig:35 - Typed 'test@gmail.com' in Email Field
+2022-01-21 20:04:36 INFO  LoggerConfig:35 - Typed '9500927778' in Phone Field
+2022-01-21 20:04:37 INFO  LoggerConfig:35 - Clicked on Cash on Delivery - Radio Button
+2022-01-21 20:04:37 INFO  LoggerConfig:35 - Clicked on Place Order Button
+2022-01-21 20:04:37 INFO  LoggerConfig:52 - Text of 'Order Popup' :: Missing name
+2022-01-21 20:04:38 INFO  LoggerConfig:35 - Successfully validated the Invalid Order - Without Name: Missing name
+2022-01-21 20:04:39 INFO  LoggerConfig:114 - Gif creation is in progress...
+2022-01-21 20:04:42 INFO  LoggerConfig:64 - Converted the available screenshots into gif
+2022-01-21 20:04:42 INFO  LoggerConfig:101 - Deleted the passed screenshots as the Gif is created
