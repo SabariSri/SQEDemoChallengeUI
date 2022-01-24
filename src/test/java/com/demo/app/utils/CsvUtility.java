@@ -1,7 +1,6 @@
 package com.demo.app.utils;
 
 import com.demo.app.base.TestBase;
-import com.demo.app.constants.FrameworkConstants;
 import com.opencsv.CSVReader;
 
 import java.io.File;
@@ -10,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CsvUtility implements FrameworkConstants {
+public class CsvUtility {
 
     public Object[][] getData(String csvFile, String testCaseName) {
         String csvFilePath = System.getProperty("user.dir") + TestBase.getConfigProperty(csvFile)

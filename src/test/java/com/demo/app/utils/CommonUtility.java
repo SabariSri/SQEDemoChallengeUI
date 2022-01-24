@@ -1,7 +1,7 @@
 package com.demo.app.utils;
 
 import com.demo.app.base.TestBase;
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.ConfigKeywords;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,18 +13,18 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class CommonUtility implements FrameworkConstants {
+public class CommonUtility {
 
     private static final String SCREENSHOTS_DIRECTORY = System.getProperty("user.dir")
-            + TestBase.getConfigProperty(ConfigKeyWords.SCREENSHOT_OUTPUT.toString()).replaceAll("//", File.separator);
+            + TestBase.getConfigProperty(ConfigKeywords.SCREENSHOT_OUTPUT.toString()).replaceAll("//", File.separator);
     private static final String REPORTS_DIRECTORY = System.getProperty("user.dir")
-            + TestBase.getConfigProperty(ConfigKeyWords.REPORT_OUTPUT.toString()).replaceAll("//", File.separator);
+            + TestBase.getConfigProperty(ConfigKeywords.REPORT_OUTPUT.toString()).replaceAll("//", File.separator);
     private static final String LOGS_DIRECTORY = System.getProperty("user.dir")
-            + TestBase.getConfigProperty(ConfigKeyWords.LOG_OUTPUT.toString()).replaceAll("//", File.separator);
+            + TestBase.getConfigProperty(ConfigKeywords.LOG_OUTPUT.toString()).replaceAll("//", File.separator);
     static boolean deleteSnapsGifsReports = Boolean.parseBoolean(TestBase
-            .getConfigProperty(ConfigKeyWords.SNAPS_REPORTS_REMOVAL_BEFORE_RUN.toString()));
+            .getConfigProperty(ConfigKeywords.SNAPS_REPORTS_REMOVAL_BEFORE_RUN.toString()));
     static boolean deleteLogs = Boolean.parseBoolean(TestBase
-            .getConfigProperty(ConfigKeyWords.LOGS_REMOVAL_BEFORE_RUN.toString()));
+            .getConfigProperty(ConfigKeywords.LOGS_REMOVAL_BEFORE_RUN.toString()));
 
     private CommonUtility() {
         throw new IllegalStateException("Common utility class");
@@ -64,10 +64,6 @@ public class CommonUtility implements FrameworkConstants {
         }
     }
 
-    public static void createFile(String path) {
-        new File(path);
-    }
-
     /**
      * Deletes all the files (gifs, logs, reports & screenshots) from the custom output directories
      */
@@ -86,20 +82,16 @@ public class CommonUtility implements FrameworkConstants {
             File folder = new File(LOGS_DIRECTORY);
             File[] allFiles = folder.listFiles();
             for (int i = 0; i < (allFiles != null ? allFiles.length : 0); i++) {
-                String currentLogFile = System.getProperty(ConfigKeyWords.LOG_CURRENT_DATE_TIME.toString());
+                String currentLogFile = System.getProperty(ConfigKeywords.LOG_CURRENT_DATE_TIME.toString());
                 String eachFileName = allFiles[i].getName();
                 if (!eachFileName.contains(currentLogFile)) {
-                    deleteFile(allFiles[i].toPath());
+                    Files.delete(allFiles[i].toPath());
                 }
             }
             TestBase.getLogger().info("Cleared the existing execution logs");
         } else {
             TestBase.getLogger().info("Did not clear all the existing logs as per the configuration");
         }
-    }
-
-    public static void deleteFile(Path path) throws IOException {
-        Files.delete(path);
     }
 
     public static void deleteFilesWithExtension(String directory, String extension) throws IOException {

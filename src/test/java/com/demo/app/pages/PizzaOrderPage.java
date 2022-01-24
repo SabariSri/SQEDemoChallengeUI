@@ -1,14 +1,14 @@
 package com.demo.app.pages;
 
-import com.demo.app.utils.PageActionsUtility;
+import com.demo.app.base.PageBase;
 import com.demo.app.base.TestBase;
-import com.demo.app.constants.TestDataConstants;
+import com.demo.app.enums.ColumnNames;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.Map;
 
-public class PizzaOrderPage extends PageActionsUtility {
+public class PizzaOrderPage extends PageBase {
 
     @FindBy(id = "pizza1Pizza")
     WebElement selectPizza1DropDown;
@@ -56,20 +56,20 @@ public class PizzaOrderPage extends PageActionsUtility {
     String elePizza1Text = "//select[@id='pizza1Pizza']/option[@value='TBU']";
 
     public void chooseMenu(Map<String, String> data) {
-        selectOptionByValue(selectPizza1DropDown, data.get(TestDataConstants.ColumnName.PIZZA1.toString()),
+        selectOptionByValue(selectPizza1DropDown, data.get(ColumnNames.PIZZA1.toString()),
                 "Pizza1 Dropdown");
-        selectOptionByValue(selectToppings1DropDown, data.get(TestDataConstants.ColumnName.TOPPINGS1.toString()),
+        selectOptionByValue(selectToppings1DropDown, data.get(ColumnNames.TOPPINGS1.toString()),
                 "Toppings1 Dropdown");
-        selectOptionByValue(selectToppings2DropDown, data.get(TestDataConstants.ColumnName.TOPPINGS2.toString()),
+        selectOptionByValue(selectToppings2DropDown, data.get(ColumnNames.TOPPINGS2.toString()),
                 "Toppings2 Dropdown");
-        clearAndSetText(pizza1QtyField, data.get(TestDataConstants.ColumnName.QUANTITY.toString()),
+        clearAndSetText(pizza1QtyField, data.get(ColumnNames.QUANTITY.toString()),
                 "Quantity Field");
     }
 
     public void addPickupInfo(Map<String, String> data) {
-        setText(nameField, data.get(TestDataConstants.ColumnName.NAME.toString()), "Name Field");
-        setText(emailField, data.get(TestDataConstants.ColumnName.EMAIL.toString()), "Email Field");
-        setText(phoneField, data.get(TestDataConstants.ColumnName.PHONE.toString()), "Phone Field");
+        setText(nameField, data.get(ColumnNames.NAME.toString()), "Name Field");
+        setText(emailField, data.get(ColumnNames.EMAIL.toString()), "Email Field");
+        setText(phoneField, data.get(ColumnNames.PHONE.toString()), "Phone Field");
     }
 
     public void selectPayment(String payment) {
@@ -86,11 +86,11 @@ public class PizzaOrderPage extends PageActionsUtility {
         }
     }
 
-    public String getTotalCost(){
+    public String getTotalCost() {
         return getText(pizza1TotalCostField, "Total Cost Field");
     }
 
-    public String getPizza1Text(String pizza1Option){
+    public String getPizza1Text(String pizza1Option) {
         return getText(elePizza1Text.replace("TBU", pizza1Option), "Selected Pizza1 Text");
     }
 
@@ -102,7 +102,7 @@ public class PizzaOrderPage extends PageActionsUtility {
         clickOn(resetButton, "Reset Order Button");
     }
 
-    public String getOrderPopupText(){
+    public String getOrderPopupText() {
         return getText(dialogPopupText, "Order Popup");
     }
 }

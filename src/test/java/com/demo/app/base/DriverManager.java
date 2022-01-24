@@ -1,6 +1,6 @@
 package com.demo.app.base;
 
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.Browsers;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,7 +10,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import static org.testng.Assert.fail;
 
-public class DriverManager implements FrameworkConstants {
+public class DriverManager {
 
     private DriverManager() {
         throw new IllegalStateException("Driver manager class");

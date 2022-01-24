@@ -1,7 +1,7 @@
 package com.demo.app.utils;
 
 import com.demo.app.base.TestBase;
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.ConfigKeywords;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -25,18 +25,16 @@ import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-public class ImageUtility implements FrameworkConstants {
+public class ImageUtility {
     private static final String SCREENSHOTS_DIRECTORY = System.getProperty("user.dir") + TestBase
-            .getConfigProperty(ConfigKeyWords.SCREENSHOT_OUTPUT.toString())
+            .getConfigProperty(ConfigKeywords.SCREENSHOT_OUTPUT.toString())
             .replaceAll("//", File.separator);
     private static final String APP_EXTENSION = "ApplicationExtensions";
-    static boolean captureAllSteps = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeyWords.SCREENSHOT_CAPTURE_ALL_STEPS.toString()));
-    static boolean createGif = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeyWords.GIF_RECAP_CREATE.toString()));
-    static boolean deleteSnapsPostGif = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeyWords.SCREENSHOT_DEL_POST_GIF.toString()));
+    static boolean captureAllSteps = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeywords.SCREENSHOT_CAPTURE_ALL_STEPS.toString()));
+    static boolean createGif = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeywords.GIF_RECAP_CREATE.toString()));
+    static boolean deleteSnapsPostGif = Boolean.parseBoolean(TestBase.getConfigProperty(ConfigKeywords.SCREENSHOT_DEL_POST_GIF.toString()));
 
     private ImageUtility() {
         throw new IllegalStateException("Image utility class");
@@ -68,14 +66,14 @@ public class ImageUtility implements FrameworkConstants {
      * @return screenshot absolute path
      */
     public static String getScreenshot(String testcaseName, String stepStatus) {
-        String extension = TestBase.getConfigProperty(ConfigKeyWords.SCREENSHOT_EXTENSION.toString());
+        String extension = TestBase.getConfigProperty(ConfigKeywords.SCREENSHOT_EXTENSION.toString());
         String screenshotPath = SCREENSHOTS_DIRECTORY + testcaseName + "_" + stepStatus + "-"
                 + CommonUtility.getDateTime() + extension;
         try {
             TakesScreenshot screenshot = ((TakesScreenshot) TestBase.getDriver());
             File file = screenshot.getScreenshotAs(OutputType.FILE);
             CommonUtility.waitFor(file, Integer.parseInt(TestBase
-                    .getConfigProperty(ConfigKeyWords.SCREENSHOT_GAP_MS.toString())));
+                    .getConfigProperty(ConfigKeywords.SCREENSHOT_GAP_MS.toString())));
             FileUtils.copyFile(file, new File(screenshotPath));
         } catch (Exception e) {
             TestBase.getLogger().error("Unable to take screenshot", e);
@@ -92,10 +90,10 @@ public class ImageUtility implements FrameworkConstants {
             File folder = new File(SCREENSHOTS_DIRECTORY);
             File[] allFiles = folder.listFiles();
             for (int i = 0; i < (allFiles != null ? allFiles.length : 0); i++) {
-                String screenshotExt = TestBase.getConfigProperty(ConfigKeyWords.SCREENSHOT_EXTENSION.toString());
+                String screenshotExt = TestBase.getConfigProperty(ConfigKeywords.SCREENSHOT_EXTENSION.toString());
                 String eachFileName = allFiles[i].getName();
                 if (eachFileName.endsWith(screenshotExt) && !allFiles[i].getName().contains("Fail")) {
-                    CommonUtility.deleteFile(allFiles[i].toPath());
+                    Files.delete(allFiles[i].toPath());
                 }
             }
             TestBase.getLogger().info("Deleted the passed screenshots as the Gif is created");
@@ -107,7 +105,7 @@ public class ImageUtility implements FrameworkConstants {
     public static void createAnimatedGif(String testcaseName, int delayInMilliseconds, Integer repeatCount) throws IOException {
         if (createGif) {
             String gifPath = SCREENSHOTS_DIRECTORY + testcaseName + "_" + CommonUtility.getDateTime() + ".gif";
-            CommonUtility.createFile(gifPath);
+            new File(gifPath);
             OutputStream stream = Files.newOutputStream(Paths.get(gifPath));
             List<BufferedImage> frames = new ArrayList<>();
             if (!TestBase.getScreenshotsSet().isEmpty()) {

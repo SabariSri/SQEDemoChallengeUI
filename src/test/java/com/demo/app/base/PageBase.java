@@ -1,15 +1,14 @@
-package com.demo.app.utils;
+package com.demo.app.base;
 
-import com.demo.app.base.TestBase;
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.PageActionLogs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class PageActionsUtility implements FrameworkConstants {
-    
+public class PageBase {
+
     public void clickOn(WebElement element, String refKey) {
         try {
             element.click();
@@ -109,7 +108,7 @@ public class PageActionsUtility implements FrameworkConstants {
     }
 
     public WebElement findElement(String element) {
-            return TestBase.getDriver().findElement(By.xpath(element));
+        return TestBase.getDriver().findElement(By.xpath(element));
     }
 
     public void switch_to_iframe(String iframe) {

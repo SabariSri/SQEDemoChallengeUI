@@ -1,20 +1,19 @@
 package com.demo.app.base;
 
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.ConfigKeywords;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LoggerConfig implements FrameworkConstants {
+public class LoggerConfig {
 
     static {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_hh.mm.ss");
-        System.setProperty(ConfigKeyWords.LOG_CURRENT_DATE_TIME.toString(), dateFormat.format(new Date()));
+        System.setProperty(ConfigKeywords.LOG_CURRENT_DATE_TIME.toString(), dateFormat.format(new Date()));
     }
 
     private LoggerConfig() {
@@ -26,7 +25,7 @@ public class LoggerConfig implements FrameworkConstants {
         Logger logger = null;
         try {
             String log4jConfigFile = System.getProperty("user.dir")
-                    + TestBase.getConfigProperty(ConfigKeyWords.LOG_PROP.toString())
+                    + TestBase.getConfigProperty(ConfigKeywords.LOG_PROP.toString())
                     .replaceAll("//", File.separator);
             logger = Logger.getLogger(LoggerConfig.class);
             PropertyConfigurator.configure(log4jConfigFile);
