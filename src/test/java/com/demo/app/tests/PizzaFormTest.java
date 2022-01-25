@@ -12,7 +12,7 @@ public class PizzaFormTest extends TestBase {
 
     @Test(dataProvider = "testData", dataProviderClass = TestDataProvider.class)
     public void testPlaceOrder(Map<String, String> data) {
-        setTestCaseName(data);
+        setTestCaseNameAndData(data);
         pizzaOrderPage.chooseMenu(data);
         String expectedTotalCost = getExpectedTotalCost(data);
         pizzaOrderPage.addPickupInfo(data);
@@ -21,10 +21,10 @@ public class PizzaFormTest extends TestBase {
         String orderPopup = pizzaOrderPage.getOrderPopupText();
         AssertUtility.assertContains(orderPopup,
                 data.get(ColumnNames.EXPECTED_ORDER_POPUP_MSG.toString()), "Order Popup");
-        validateSuccessOrderPopup(orderPopup, expectedTotalCost);
+        validateTotalCostFromSuccessOrderPopup(orderPopup, expectedTotalCost);
     }
 
-    private void validateSuccessOrderPopup(String orderPopup, String expectedTotalCost) {
+    private void validateTotalCostFromSuccessOrderPopup(String orderPopup, String expectedTotalCost) {
         if (orderPopup.contains(getAppMsgProperty("successOrderPopupMsg"))) {
             AssertUtility.assertEquals(orderPopup.split(":")[1].split(" ")[1],
                     expectedTotalCost, "Total cost from order popup");

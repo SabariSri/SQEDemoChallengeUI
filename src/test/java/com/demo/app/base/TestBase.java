@@ -109,7 +109,7 @@ public class TestBase {
         pizzaOrderPage = new PizzaOrderPage();
     }
 
-    protected static void setTestCaseName(Map<String, String> data) {
+    protected static void setTestCaseNameAndData(Map<String, String> data) {
         testCaseName = data.get("TestName");
         getReport().startTest(testCaseName);
         getLogger().info("***************************************************************************************");
