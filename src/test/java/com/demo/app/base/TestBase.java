@@ -1,6 +1,6 @@
 package com.demo.app.base;
 
-import com.demo.app.constants.FrameworkConstants;
+import com.demo.app.enums.ConfigKeywords;
 import com.demo.app.pages.PizzaOrderPage;
 import com.demo.app.utils.CommonUtility;
 import com.demo.app.utils.ExtentReportUtility;
@@ -15,12 +15,14 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-public class TestBase implements FrameworkConstants {
+public class TestBase {
 
     private static Properties configProp;
     private static Properties appMsgProp;
@@ -47,13 +49,11 @@ public class TestBase implements FrameworkConstants {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void beforeTestCase(Method method) {
+    public void beforeTestCase() {
         try {
             setScreenshotsSet();
-            setTestCaseName(method.getName());
-            getReport().startTest(getTestCaseName());
-            String url = getConfigProperty(ConfigKeyWords.URL.toString());
-            driver = DriverManager.initializeDriver(getConfigProperty(ConfigKeyWords.BROWSER.toString()));
+            String url = getConfigProperty(ConfigKeywords.URL.toString());
+            driver = DriverManager.initializeDriver(getConfigProperty(ConfigKeywords.BROWSER.toString()));
             getDriver().manage().window().maximize();
             getDriver().get(url);
             setPages();
@@ -69,8 +69,8 @@ public class TestBase implements FrameworkConstants {
         getDriver().quit();
         try {
             ImageUtility.createAnimatedGif(testCaseName,
-                    Integer.parseInt(configProp.getProperty(ConfigKeyWords.GIF_SNAPS_INTERVAL_SECS.toString())),
-                    Integer.parseInt(configProp.getProperty(ConfigKeyWords.GIF_LOOP.toString())));
+                    Integer.parseInt(configProp.getProperty(ConfigKeywords.GIF_SNAPS_INTERVAL_SECS.toString())),
+                    Integer.parseInt(configProp.getProperty(ConfigKeywords.GIF_LOOP.toString())));
         } catch (Exception e) {
             getLogger().error("Unable to complete testcase cleanup", e);
         } finally {
@@ -87,6 +87,14 @@ public class TestBase implements FrameworkConstants {
         }
     }
 
+    private void createCustomOutputFolders() {
+        String customOutput = System.getProperty("user.dir") + File.separator + "CustomOutput";
+        CommonUtility.createDirectory(customOutput);
+        CommonUtility.createDirectory(customOutput + File.separator + "logs");
+        CommonUtility.createDirectory(customOutput + File.separator + "reports");
+        CommonUtility.createDirectory(customOutput + File.separator + "screenshots");
+    }
+
     private void loadPages() {
         PageFactory.initElements(driver, pizzaOrderPage);
     }
@@ -95,14 +103,17 @@ public class TestBase implements FrameworkConstants {
         pizzaOrderPage = new PizzaOrderPage();
     }
 
-    private void setTestCaseName(String testCase) {
-        testCaseName = testCase;
+    protected static void setTestCaseName(Map<String, String> data) {
+        testCaseName = data.get("TestName");
+        getReport().startTest(testCaseName);
         getLogger().info("***************************************************************************************");
-        getLogger().info("Staring Test Execution - " + testCase);
+        getLogger().info("Staring Test Execution - " + testCaseName);
         getLogger().info("***************************************************************************************");
+        getReport().stepInfo("Test data :: " + data);
     }
 
     private void setLogger() {
+        createCustomOutputFolders();
         log = LoggerConfig.loadLogProperties();
     }
 
@@ -112,12 +123,12 @@ public class TestBase implements FrameworkConstants {
 
     private static void setConfigProp() {
         configProp = PropertyInitiator
-                .readProperties(System.getProperty("user.dir") + ConfigKeyWords.CONFIG_PROP_PATH);
+                .readProperties(System.getProperty("user.dir") + ConfigKeywords.CONFIG_PROP_PATH);
     }
 
     private static void setAppMsgProp() {
         appMsgProp = PropertyInitiator.readProperties(System
-                .getProperty("user.dir") + configProp.getProperty(ConfigKeyWords.APP_MSG_PROP.toString()));
+                .getProperty("user.dir") + configProp.getProperty(ConfigKeywords.APP_MSG_PROP.toString()));
     }
 
     private static void setScreenshotsSet() {
