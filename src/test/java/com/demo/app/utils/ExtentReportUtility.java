@@ -2,7 +2,6 @@ package com.demo.app.utils;
 
 import com.demo.app.base.TestBase;
 import com.demo.app.enums.ConfigKeywords;
-import com.demo.app.enums.ReportSteps;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -14,6 +13,10 @@ public class ExtentReportUtility {
 
     private ExtentReports extentReports;
     private ExtentTest extentTest;
+    private static final String STEP_PASS = "StepPass";
+    private static final String STEP_FAIL = "StepFail";
+    private static final String STEP_FAIL_ERROR = "StepFailError";
+    private static final String STEP_WARNING = "StepWarning";
 
     public void startReport() {
         String reportOutput = System.getProperty("user.dir") + TestBase.getConfigProperty(ConfigKeywords.REPORT_OUTPUT
@@ -32,19 +35,19 @@ public class ExtentReportUtility {
 
     public void stepPass(String passText) {
         extentTest.log(LogStatus.PASS, passText);
-        attachScreenshotDynamically(LogStatus.PASS, ReportSteps.STEP_PASS.toString(), false);
+        attachScreenshotDynamically(LogStatus.PASS, STEP_PASS, false);
         TestBase.getLogger().info(passText);
     }
 
     public void stepFailErrorStack(String errorText, Throwable error) {
         extentTest.log(LogStatus.FAIL, errorText, error.fillInStackTrace());
-        attachScreenshotDynamically(LogStatus.FAIL, ReportSteps.STEP_FAIL_ERROR.toString(), true);
+        attachScreenshotDynamically(LogStatus.FAIL, STEP_FAIL_ERROR, true);
         TestBase.getLogger().error(errorText, error);
     }
 
     public void stepFail(String failText) {
         extentTest.log(LogStatus.FAIL, failText);
-        attachScreenshotDynamically(LogStatus.FAIL, ReportSteps.STEP_FAIL.toString(), true);
+        attachScreenshotDynamically(LogStatus.FAIL, STEP_FAIL, true);
         TestBase.getLogger().error(failText);
     }
 
@@ -55,7 +58,7 @@ public class ExtentReportUtility {
 
     public void stepWarning(String warningText) {
         extentTest.log(LogStatus.WARNING, warningText);
-        attachScreenshotDynamically(LogStatus.WARNING, ReportSteps.STEP_WARNING.toString(), false);
+        attachScreenshotDynamically(LogStatus.WARNING, STEP_WARNING, false);
         TestBase.getLogger().warn(warningText);
     }
 

@@ -9,8 +9,8 @@ import java.lang.reflect.Method;
 public class TestDataProvider {
 
     @DataProvider(name = "testData")
-    public Object[][] getTestData(Method method) {
+    public Object[][] getTestData() {
         CsvUtility csvData = new CsvUtility();
-        return csvData.getData(ConfigKeywords.DATA_CSV.toString(), method.getName());
+        return csvData.getData(ConfigKeywords.DATA_CSV.toString());
     }
 }

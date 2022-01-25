@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.Map;
 
-public class PizzaOrderPage extends PageBase {
+public class PizzaOrderPage {
 
     @FindBy(id = "pizza1Pizza")
     WebElement selectPizza1DropDown;
@@ -55,29 +55,31 @@ public class PizzaOrderPage extends PageBase {
     // Dynamic locators as String
     String elePizza1Text = "//select[@id='pizza1Pizza']/option[@value='TBU']";
 
+    PageBase pageBase = new PageBase();
+
     public void chooseMenu(Map<String, String> data) {
-        selectOptionByValue(selectPizza1DropDown, data.get(ColumnNames.PIZZA1.toString()),
+        pageBase.selectOptionByValue(selectPizza1DropDown, data.get(ColumnNames.PIZZA1.toString()),
                 "Pizza1 Dropdown");
-        selectOptionByValue(selectToppings1DropDown, data.get(ColumnNames.TOPPINGS1.toString()),
+        pageBase.selectOptionByValue(selectToppings1DropDown, data.get(ColumnNames.TOPPINGS1.toString()),
                 "Toppings1 Dropdown");
-        selectOptionByValue(selectToppings2DropDown, data.get(ColumnNames.TOPPINGS2.toString()),
+        pageBase.selectOptionByValue(selectToppings2DropDown, data.get(ColumnNames.TOPPINGS2.toString()),
                 "Toppings2 Dropdown");
-        clearAndSetText(pizza1QtyField, data.get(ColumnNames.QUANTITY.toString()),
+        pageBase.clearAndSetText(pizza1QtyField, data.get(ColumnNames.QUANTITY.toString()),
                 "Quantity Field");
     }
 
     public void addPickupInfo(Map<String, String> data) {
-        setText(nameField, data.get(ColumnNames.NAME.toString()), "Name Field");
-        setText(emailField, data.get(ColumnNames.EMAIL.toString()), "Email Field");
-        setText(phoneField, data.get(ColumnNames.PHONE.toString()), "Phone Field");
+        pageBase.setText(nameField, data.get(ColumnNames.NAME.toString()), "Name Field");
+        pageBase.setText(emailField, data.get(ColumnNames.EMAIL.toString()), "Email Field");
+        pageBase.setText(phoneField, data.get(ColumnNames.PHONE.toString()), "Phone Field");
     }
 
     public void selectPayment(String payment) {
         try {
             if (payment.equalsIgnoreCase("Credit")) {
-                clickOn(creditCardRadioButton, "Credit Card - Radio Button");
+                pageBase.clickOn(creditCardRadioButton, "Credit Card - Radio Button");
             } else if (payment.equalsIgnoreCase("Cash")) {
-                clickOn(cashRadioButton, "Cash on Delivery - Radio Button");
+                pageBase.clickOn(cashRadioButton, "Cash on Delivery - Radio Button");
             } else {
                 TestBase.getReport().stepFail("Invalid payment type: " + payment);
             }
@@ -87,22 +89,22 @@ public class PizzaOrderPage extends PageBase {
     }
 
     public String getTotalCost() {
-        return getText(pizza1TotalCostField, "Total Cost Field");
+        return pageBase.getText(pizza1TotalCostField, "Total Cost Field");
     }
 
     public String getPizza1Text(String pizza1Option) {
-        return getText(elePizza1Text.replace("TBU", pizza1Option), "Selected Pizza1 Text");
+        return pageBase.getText(elePizza1Text.replace("TBU", pizza1Option), "Selected Pizza1 Text");
     }
 
     public void placeOrder() {
-        clickOn(placeOrderButton, "Place Order Button");
+        pageBase.clickOn(placeOrderButton, "Place Order Button");
     }
 
     public void resetOrder() {
-        clickOn(resetButton, "Reset Order Button");
+        pageBase.clickOn(resetButton, "Reset Order Button");
     }
 
     public String getOrderPopupText() {
-        return getText(dialogPopupText, "Order Popup");
+        return pageBase.getText(dialogPopupText, "Order Popup");
     }
 }

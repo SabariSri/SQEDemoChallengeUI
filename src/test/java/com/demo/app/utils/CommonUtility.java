@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -67,13 +66,17 @@ public class CommonUtility {
     /**
      * Deletes all the files (gifs, logs, reports & screenshots) from the custom output directories
      */
-    public static void deleteSnapsGifsReportFiles() throws IOException {
-        if (deleteSnapsGifsReports) {
-            FileUtils.cleanDirectory(new File(SCREENSHOTS_DIRECTORY));
-            FileUtils.cleanDirectory(new File(REPORTS_DIRECTORY));
-            TestBase.getLogger().info("Cleared all the existing screenshots, GIFs & reports from its respective directories");
-        } else {
-            TestBase.getLogger().info("Did not clear all the existing screenshots, GIFs & reports as per the configuration");
+    public static void deleteSnapsGifsReportFiles() {
+        try {
+            if (deleteSnapsGifsReports) {
+                FileUtils.cleanDirectory(new File(SCREENSHOTS_DIRECTORY));
+                FileUtils.cleanDirectory(new File(REPORTS_DIRECTORY));
+                TestBase.getLogger().info("Cleared all the existing screenshots, GIFs & reports from its respective directories");
+            } else {
+                TestBase.getLogger().info("Did not clear all the existing screenshots, GIFs & reports as per the configuration");
+            }
+        } catch (Exception e) {
+            TestBase.getLogger().info("");
         }
     }
 
@@ -92,6 +95,10 @@ public class CommonUtility {
         } else {
             TestBase.getLogger().info("Did not clear all the existing logs as per the configuration");
         }
+    }
+
+    public static void createDirectory(String directoryPath){
+       new File(directoryPath).mkdirs();
     }
 
     public static void deleteFilesWithExtension(String directory, String extension) throws IOException {

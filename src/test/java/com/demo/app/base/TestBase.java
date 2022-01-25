@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeSuite;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -48,11 +49,9 @@ public class TestBase {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void beforeTestCase(Method method) {
+    public void beforeTestCase() {
         try {
             setScreenshotsSet();
-            setTestCaseName(method.getName());
-            getReport().startTest(getTestCaseName());
             String url = getConfigProperty(ConfigKeywords.URL.toString());
             driver = DriverManager.initializeDriver(getConfigProperty(ConfigKeywords.BROWSER.toString()));
             getDriver().manage().window().maximize();
@@ -89,10 +88,11 @@ public class TestBase {
     }
 
     private void createCustomOutputFolders() {
-        new File(System.getProperty("user.dir") + File.separator + "CustomOutput");
-        new File(System.getProperty("user.dir") + File.separator + "CustomOutput" + File.separator + "logs");
-        new File(System.getProperty("user.dir") + File.separator + "CustomOutput" + File.separator + "reports");
-        new File(System.getProperty("user.dir") + File.separator + "CustomOutput" + File.separator + "screenshots");
+        String customOutput = System.getProperty("user.dir") + File.separator + "CustomOutput";
+        CommonUtility.createDirectory(customOutput);
+        CommonUtility.createDirectory(customOutput + File.separator + "logs");
+        CommonUtility.createDirectory(customOutput + File.separator + "reports");
+        CommonUtility.createDirectory(customOutput + File.separator + "screenshots");
     }
 
     private void loadPages() {
@@ -103,11 +103,13 @@ public class TestBase {
         pizzaOrderPage = new PizzaOrderPage();
     }
 
-    private void setTestCaseName(String testCase) {
-        testCaseName = testCase;
+    protected static void setTestCaseName(Map<String, String> data) {
+        testCaseName = data.get("TestName");
+        getReport().startTest(testCaseName);
         getLogger().info("***************************************************************************************");
-        getLogger().info("Staring Test Execution - " + testCase);
+        getLogger().info("Staring Test Execution - " + testCaseName);
         getLogger().info("***************************************************************************************");
+        getReport().stepInfo("Test data :: " + data);
     }
 
     private void setLogger() {
