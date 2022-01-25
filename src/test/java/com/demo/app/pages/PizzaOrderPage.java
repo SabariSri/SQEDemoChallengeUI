@@ -22,9 +22,6 @@ public class PizzaOrderPage {
     @FindBy(id = "pizza1Qty")
     WebElement pizza1QtyField;
 
-    @FindBy(id = "pizza1Cost")
-    WebElement pizza1TotalCostField;
-
     @FindBy(id = "name")
     WebElement nameField;
 
@@ -42,12 +39,6 @@ public class PizzaOrderPage {
 
     @FindBy(id = "placeOrder")
     WebElement placeOrderButton;
-
-    @FindBy(id = "reset")
-    WebElement resetButton;
-
-    @FindBy(id = "dialog")
-    WebElement dialogPopup;
 
     @FindBy(xpath = "//div[@id='dialog']/p")
     WebElement dialogPopupText;
@@ -88,20 +79,12 @@ public class PizzaOrderPage {
         }
     }
 
-    public String getTotalCost() {
-        return pageBase.getText(pizza1TotalCostField, "Total Cost Field");
-    }
-
     public String getPizza1Text(String pizza1Option) {
         return pageBase.getText(elePizza1Text.replace("TBU", pizza1Option), "Selected Pizza1 Text");
     }
 
     public void placeOrder() {
         pageBase.clickOn(placeOrderButton, "Place Order Button");
-    }
-
-    public void resetOrder() {
-        pageBase.clickOn(resetButton, "Reset Order Button");
     }
 
     public String getOrderPopupText() {

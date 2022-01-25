@@ -21,14 +21,14 @@ public class CsvUtility {
             String[] headerRow = csvData.get(0);
             int totalColumns = headerRow.length;
             int totalRows = csvData.size();
-            Object[][] dataObject = new Object[totalRows-1][1];
+            Object[][] dataObject = new Object[totalRows - 1][1];
             for (int rowIndex = 1; rowIndex < totalRows; rowIndex++) {
                 Map<String, String> testData = new LinkedHashMap<>();
                 for (int columnIndex = 0; columnIndex < totalColumns; columnIndex++) {
                     testData.put(headerRow[columnIndex], csvData.get(rowIndex)[columnIndex]
                             .replace("'", "").trim());
                 }
-                dataObject[rowIndex-1][0] = testData;
+                dataObject[rowIndex - 1][0] = testData;
             }
             return dataObject;
         } catch (Exception e) {

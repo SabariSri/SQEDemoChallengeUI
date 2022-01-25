@@ -4,8 +4,6 @@ import com.demo.app.enums.ConfigKeywords;
 import com.demo.app.utils.CsvUtility;
 import org.testng.annotations.DataProvider;
 
-import java.lang.reflect.Method;
-
 public class TestDataProvider {
 
     @DataProvider(name = "testData")

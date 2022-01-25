@@ -5,7 +5,6 @@ import com.demo.app.enums.ConfigKeywords;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import org.testng.SkipException;
 
 import java.io.File;
 
@@ -16,7 +15,6 @@ public class ExtentReportUtility {
     private static final String STEP_PASS = "StepPass";
     private static final String STEP_FAIL = "StepFail";
     private static final String STEP_FAIL_ERROR = "StepFailError";
-    private static final String STEP_WARNING = "StepWarning";
 
     public void startReport() {
         String reportOutput = System.getProperty("user.dir") + TestBase.getConfigProperty(ConfigKeywords.REPORT_OUTPUT
@@ -56,20 +54,10 @@ public class ExtentReportUtility {
         TestBase.getLogger().info(infoText);
     }
 
-    public void stepWarning(String warningText) {
-        extentTest.log(LogStatus.WARNING, warningText);
-        attachScreenshotDynamically(LogStatus.WARNING, STEP_WARNING, false);
-        TestBase.getLogger().warn(warningText);
-    }
-
     public void stepRecap(String passText, String gifPath) {
         String gif = extentTest.addScreenCapture(gifPath);
         extentTest.log(LogStatus.INFO, "Test Recap " + gif);
         TestBase.getLogger().info(passText);
-    }
-
-    public void skipTest() {
-        throw new SkipException("Skipping - This is not ready for testing ");
     }
 
     public void endTest() {

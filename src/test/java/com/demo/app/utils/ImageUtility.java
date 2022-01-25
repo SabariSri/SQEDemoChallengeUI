@@ -148,7 +148,8 @@ public class ImageUtility {
             setDelayTime(delayInSeconds, tree);
             metadata.setFromTree(format, tree);
             writer.writeToSequence(new IIOImage(image, null, metadata), null);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private static void setRepeatCount(Number repeatCount, Node imageMetadata) {

@@ -1,6 +1,5 @@
 package com.demo.app.utils;
 
-import com.demo.app.base.LoggerConfig;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 

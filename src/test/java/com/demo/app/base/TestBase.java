@@ -16,7 +16,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Properties;
@@ -40,8 +39,7 @@ public class TestBase {
             setAppMsgProp();
             setLogger();
             setReport();
-            CommonUtility.deleteSnapsGifsReportFiles();
-            CommonUtility.deleteLogFiles();
+            clearExistingOutputFiles();
             getReport().startReport();
         } catch (Exception e) {
             getLogger().error("Unable to complete base Setup", e);
@@ -52,15 +50,11 @@ public class TestBase {
     public void beforeTestCase() {
         try {
             setScreenshotsSet();
-            String url = getConfigProperty(ConfigKeywords.URL.toString());
-            driver = DriverManager.initializeDriver(getConfigProperty(ConfigKeywords.BROWSER.toString()));
-            getDriver().manage().window().maximize();
-            getDriver().get(url);
+            launchBrowser();
             setPages();
             loadPages();
         } catch (Exception e) {
             getLogger().error("Unable to complete testcase setup", e);
-
         }
     }
 
@@ -87,12 +81,24 @@ public class TestBase {
         }
     }
 
+    private void launchBrowser() {
+        String url = getConfigProperty(ConfigKeywords.URL.toString());
+        driver = DriverManager.initializeDriver(getConfigProperty(ConfigKeywords.BROWSER.toString()));
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+    }
+
     private void createCustomOutputFolders() {
         String customOutput = System.getProperty("user.dir") + File.separator + "CustomOutput";
         CommonUtility.createDirectory(customOutput);
         CommonUtility.createDirectory(customOutput + File.separator + "logs");
         CommonUtility.createDirectory(customOutput + File.separator + "reports");
         CommonUtility.createDirectory(customOutput + File.separator + "screenshots");
+    }
+
+    private void clearExistingOutputFiles() {
+        CommonUtility.deleteSnapsGifsReportFiles();
+        CommonUtility.deleteLogFiles();
     }
 
     private void loadPages() {
